@@ -1,10 +1,14 @@
 import React from 'react'
+import { Layout, Row } from 'antd';
+import LoginForm from './../components/LoginForm';
 
 const Login: React.FC = () => {
     return(
-        <div>
-            Login
-        </div>
+        <Layout>
+            <Row justify='center' align='middle' className='wrapper' >
+                 <LoginForm />
+            </Row>
+        </Layout>
     )
 }
 
