@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { Form, Input, Button } from 'antd'
 import { rules } from './../utils/rules';
-import { useDispatch } from 'react-redux';
-import { AuthActionCreators } from './../store/reducers/action-creators';
 import { useTypedSelector } from './../hooks/useTypedSelector';
 import { useActions } from './../hooks/useActions';
 
