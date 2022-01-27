@@ -1,7 +1,9 @@
-import axios from 'axios';
+import { IEvent } from '../../models/IEvent';
 import { AppDispatch } from '../store';
 import { IUser } from './../../models/IUser';
 import { AuthActionEnum, SetAuthAction, SetUserAction, SetErrorAction, SetIsLoadingAction } from './authReducer';
+import { EventActionEnum, SetEvensAciton, SetGuestsAcion } from './eventReducer';
+import UserService from './../../api/UserService';
 
 export const AuthActionCreators = {
     setUser: (user: IUser): SetUserAction => ({type: AuthActionEnum.SET_USER, payload: user}),
@@ -13,7 +15,7 @@ export const AuthActionCreators = {
             dispatch(AuthActionCreators.setIsLoading(true))
 
             setTimeout( async() => {
-                const response = await axios.get<IUser[]>('./users.json')
+                const response = await UserService.getUsers()
                 const mockUser = response.data.find(user => 
                     user.username === username && user.password === password)
                 if (mockUser) {
@@ -43,3 +45,16 @@ export const AuthActionCreators = {
 
 
 
+export const EventActionCreators = {
+    setGuests: (guests: IUser[]): SetGuestsAcion => ({type: EventActionEnum.SET_GUESTS, payload: guests}),
+    setEvents: (events: IEvent[]): SetEvensAciton => ({type: EventActionEnum.SET_EVENTS, payload: events}),
+    fetchGuests: () => async (dispatch: AppDispatch) => {
+        try {
+            const response = await UserService.getUsers()
+            dispatch(EventActionCreators.setGuests(response.data))
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+}
