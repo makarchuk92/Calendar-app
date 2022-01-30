@@ -21,8 +21,8 @@ export const AuthActionCreators = {
                 if (mockUser) {
                     localStorage.setItem('auth', 'true')
                     localStorage.setItem('username', mockUser.username)
-                    dispatch(AuthActionCreators.setIsAuth(true))
                     dispatch(AuthActionCreators.setUser(mockUser))
+                    dispatch(AuthActionCreators.setIsAuth(true))
                 } else {
                     dispatch(AuthActionCreators.setError('Incorrect username or password'))
                 } 
@@ -69,12 +69,12 @@ export const EventActionCreators = {
             
         }
     },
-    fetchEvents: (guestName: string, authorName: string ) => async (dispatch: AppDispatch) => {
+    fetchEvents: (username: string) => async (dispatch: AppDispatch) => {
         try {
             const events = localStorage.getItem("events") || "[]"
             const json = JSON.parse(events) as IEvent[]
             const currentUserEvents = json.filter(ev => 
-                ev.author ===  authorName || ev.guest === guestName)
+                ev.author ===  username || ev.guest === username)
             dispatch(EventActionCreators.setEvents(currentUserEvents))
         } catch (error) {
             console.log(error);
