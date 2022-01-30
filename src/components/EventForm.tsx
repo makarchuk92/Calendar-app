@@ -46,7 +46,7 @@ const EventForm: React.FC<EventFormProps> = (props: PropsWithChildren<EventFormP
             <Form.Item
                 label="Date event"
                 name="date"
-                rules={[rules.required()]}
+                rules={[rules.required(), rules.isDateAfter("Incorrect date!!!")]}
             >
                 <DatePicker onChange={(date) => selectDate(date)} />
             </Form.Item>
