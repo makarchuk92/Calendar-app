@@ -9,11 +9,12 @@ import { useTypedSelector } from '../hooks/useTypedSelector';
 
 const Event: React.FC = () => {
     const [modalVisible, setModalVisible] = useState(false)
-    const {fetchGuests} = useActions()
+    const {fetchGuests, createEvent} = useActions()
     const {guests} = useTypedSelector(state => state.event)
     useEffect(() => {
         fetchGuests()
     }, [])
+
     return(
         <Layout>
            <EventCalendar events={[]}/>
@@ -26,7 +27,7 @@ const Event: React.FC = () => {
             footer={null}  
             onCancel={() => setModalVisible(false)} 
            >
-               <EventForm guests={guests} />
+               <EventForm guests={guests} submit={event => createEvent(event)} />
            </Modal>
            
         </Layout>
